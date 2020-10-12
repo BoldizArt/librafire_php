@@ -1,8 +1,8 @@
 <?php
 /**
- * @file Contains Boldizar\LibraFire\Controller\Router
+ * @file Contains Boldizar\LibraFire\Router;
  */
-namespace Boldizar\LibraFire\Controller;
+namespace Boldizar\LibraFire;
 
 /**
  * A simple route function for project

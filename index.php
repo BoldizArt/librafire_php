@@ -8,7 +8,8 @@ require_once(__DIR__.'/vendor/autoload.php');
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-use Boldizar\LibraFire\Controller\Router;
+use Boldizar\LibraFire\Router;
+use Boldizar\LibraFire\Controller\Student;
 
 // Set up Twig template engine
 $loader = new FilesystemLoader(__DIR__.'/public/templates');
@@ -39,9 +40,8 @@ Router::add('/students', function() {
 // Students page accept only numbers as parameter
 // Other characters will result in a 404 error
 Router::add('/students/([0-9]*)', function($id) use ($twig) {
-    echo $twig->render('student.html.twig', [
-        'id' => $id
-    ]);
+    $student = new Student($id);
+    $student->show();
 });
 
 // Run the router
