@@ -6,6 +6,15 @@ error_reporting(E_ALL);
 
 require_once(__DIR__.'/vendor/autoload.php');
 
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
+// Set up Twig template engine
+$loader = new FilesystemLoader(__DIR__.'/public/templates');
+$twig = new Environment($loader, [
+    'cache' => __DIR__.'/public/cache',
+]);
+
 // This is a simple route function
 // Not a good solution, but for this case ok
 // It's working
@@ -29,7 +38,9 @@ switch ($request) {
             // Check is there an valid id in the request
             if (isset($params[1]) && is_numeric($params[1]) && !isset($params[2])) {
                 $id = (int) $params[1];
-                echo "Fetch the student with id: <b>{$id}</b>";
+                echo $twig->render('student.html.twig', [
+                    'id' => $id
+                ]);
                 break;
             }
         }

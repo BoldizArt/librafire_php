@@ -5,3 +5,6 @@ vendor
 *.zip
 *.tar.gz
 *.gz
+
+# Ignore Twig cache
+public/cache/*
