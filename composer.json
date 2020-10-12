@@ -1,0 +1,14 @@
+{
+    "name": "boldizar/librafire",
+    "description": "Librafire's OOP PHP test project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Boldizar Santo",
+            "email": "boldizar.santo@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

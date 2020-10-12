@@ -1,0 +1,7 @@
+# ignore vendor folder
+vendor
+
+# Ignore packages and zip files
+*.zip
+*.tar.gz
+*.gz
