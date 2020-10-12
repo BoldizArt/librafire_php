@@ -6,35 +6,41 @@ error_reporting(E_ALL);
 
 require_once(__DIR__.'/vendor/autoload.php');
 
-// This is a simple route function
-// Not a good solution, but for this case ok
-// It's working
-$request = $_SERVER['REQUEST_URI'];
+use Boldizar\LibraFire\Controller\Router;
 
-switch ($request) {
-    case '/' :
-        echo 'Home page';
-        break;
-    case '/students' :
-    case '/students/' :
-        echo 'Students page';
-        break;
-    default:
-        // Check for students request with an id
-        if (substr($request, 0, 10) == '/students/') {
-            // Explode the request string and create an array
-            $params = array_filter(explode('/', $request));
-            $params = array_values($params);
+// Set the "Not Found" function
+Router::notFound(function() {
+    echo "
+        <div style=\"text-align:center; padding: 4rem;\">
+            <h1>404</h1>
+            <p>Not Found</p>
+    ";
+});
 
-            // Check is there an valid id in the request
-            if (isset($params[1]) && is_numeric($params[1]) && !isset($params[2])) {
-                $id = (int) $params[1];
-                echo "Fetch the student with id: <b>{$id}</b>";
-                break;
-            }
-        }
+// Set the "Not allowed" function
+Router::notAllowed(function() {
+    echo "
+        <div style=\"text-align:center; padding: 4rem;\">
+            <h1>405</h1>
+            <p>Not Allowed</p>
+    ";
+});
 
-        http_response_code(404);
-        echo 'Page not found';
-        break;
-}
+// Home page
+Router::add('/',function() {
+    echo 'Home page';
+});
+
+// Students page
+Router::add('/students', function() {
+    echo 'Students page';
+});
+
+// Students page accept only numbers as parameter
+// Other characters will result in a 404 error
+Router::add('/students/([0-9]*)', function($id) {
+    echo "Fetch the student with id: <b>{$id}</b>";
+});
+
+// Run the router
+Router::run();
