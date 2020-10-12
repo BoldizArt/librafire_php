@@ -4,10 +4,13 @@
  */
 namespace Boldizar\LibraFire\Controller;
 
+use Boldizar\LibraFire\Interfaces\SchoolBoardInterface;
+
 /**
  * Student Class
  */
-class Student {
+class Student implements SchoolBoardInterface
+{
 
     /** @param int $id; */
     public $id;
