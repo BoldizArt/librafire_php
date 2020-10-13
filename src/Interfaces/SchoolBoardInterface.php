@@ -9,5 +9,8 @@ namespace Boldizar\LibraFire\Interfaces;
  */
 interface SchoolBoardInterface
 {
+    public function __construct(array $student);
+    public function calculateAverage();
+    public function calculateFinalResult();
     public function report();
 }

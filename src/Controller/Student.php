@@ -5,6 +5,7 @@
 namespace Boldizar\LibraFire\Controller;
 
 use Boldizar\LibraFire\Interfaces\StudentInterface;
+use Boldizar\LibraFire\Interfaces\SchoolBoardInterface;
 use Boldizar\LibraFire\Model\StudentModel;
 
 /**
@@ -12,7 +13,7 @@ use Boldizar\LibraFire\Model\StudentModel;
  */
 class Student implements StudentInterface
 {
-    /** @var Boldizar\LibraFire\Model\StudentModel $student; */
+    /** @var Object $student; */
     public $student;
 
     /**
@@ -21,39 +22,9 @@ class Student implements StudentInterface
      */
     public function __construct(int $id)
     {
-        /**
-         * @todo
-         * $student = StudentModel::fetch($id);
-         */
-        $this->student = (object) [
-            'id' => $id,
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'schoolboard' => $id == 1 ? 'csm' : 'csmb',
-            'grades' => (object) [
-                'a' => 4,
-                'b' => 8,
-                'c' => 9,
-                'd' => 10
-            ]
-        ];
-    }
-
-    /**
-     * Calculate the avrage
-     */
-    public function calculateAvrage()
-    {
-        $this->student->avrage = 7.8;
-    }
-
-
-    /**
-     * Calculate the final result
-     */
-    public function calculateFinalResult()
-    {
-        $this->student->final_result = 'passed';
+        $model = new StudentModel();
+        $this->student = $model->find($id);
+        $this->student->grades = json_decode($this->student->grades);
     }
 
     /**
@@ -61,21 +32,24 @@ class Student implements StudentInterface
      */
     public function render()
     {
-        switch ($this->student->schoolboard) {
+        switch ($this->student->school_board) {
             case 'csm':
-                $csm = new Csm($this->student);
+                $schoolBoard = new Csm($this->student);
                 break;
 
             case 'csmb':
-                $csm = new CsmB($this->student);
+                $schoolBoard = new CsmB($this->student);
                 break;
             
             default:
-                # code...
+                $schoolBoard = false;
                 break;
         }
 
-        $controller = new Controller();
-        $controller->test($csm);
+        if ($schoolBoard instanceof SchoolBoardInterface) {
+            $schoolBoard->calculateAverage();
+            $schoolBoard->calculateFinalResult();
+            $schoolBoard->report();
+        }
     }
 }

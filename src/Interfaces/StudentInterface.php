@@ -15,17 +15,6 @@ interface StudentInterface
     public function __construct(int $id);
 
     /**
-     * Calculate the avrage
-     */
-    public function calculateAvrage();
-    
-    
-    /**
-     * Calculate the final result
-     */
-    public function calculateFinalResult();
-    
-    /**
      * Render the report
      */
     public function render();

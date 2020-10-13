@@ -9,9 +9,8 @@ require_once(__DIR__.'/vendor/autoload.php');
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Boldizar\LibraFire\Router;
-use Boldizar\LibraFire\Controller\Csm;
-use Boldizar\LibraFire\Controller\CsmB;
 use Boldizar\LibraFire\Controller\Student;
+use Boldizar\LibraFire\Model\StudentModel;
 
 // Set up Twig template engine
 $loader = new FilesystemLoader(__DIR__.'/public/templates');
@@ -34,12 +33,19 @@ Router::add('/',function() use ($twig) {
     echo $twig->render('home.html.twig');
 });
 
+// Students page
+Router::add('/students',function() use ($twig) {
+    $model = new StudentModel();
+    $students = $model->fetchAll();
+    echo $twig->render('students.html.twig', [
+        'students' => $students
+    ]);
+});
+
 // Students page accept only numbers as parameter
 // Other characters will result in a 404 error
 Router::add('/students/([0-9]*)', function($id) use ($twig) {
     $student = new Student($id);
-    $student->calculateAvrage();
-    $student->calculateFinalResult();
     $student->render();
 });
 
