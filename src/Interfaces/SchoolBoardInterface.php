@@ -7,6 +7,7 @@ namespace Boldizar\LibraFire\Interfaces;
 /**
  * SchoolBoardInterface Interface
  */
-interface SchoolBoardInterface {
-    public function show();
+interface SchoolBoardInterface
+{
+    public function report();
 }

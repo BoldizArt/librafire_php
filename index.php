@@ -9,6 +9,8 @@ require_once(__DIR__.'/vendor/autoload.php');
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Boldizar\LibraFire\Router;
+use Boldizar\LibraFire\Controller\Csm;
+use Boldizar\LibraFire\Controller\CsmB;
 use Boldizar\LibraFire\Controller\Student;
 
 // Set up Twig template engine
@@ -36,9 +38,9 @@ Router::add('/',function() use ($twig) {
 // Other characters will result in a 404 error
 Router::add('/students/([0-9]*)', function($id) use ($twig) {
     $student = new Student($id);
-    $data = $student->show();
-    header('Content-Type: application/json');
-    echo json_encode($data);
+    $student->calculateAvrage();
+    $student->calculateFinalResult();
+    $student->render();
 });
 
 // Run the router
