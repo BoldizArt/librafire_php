@@ -19,5 +19,3 @@ interface StudentInterface
      */
     public function render();
 }
-
-

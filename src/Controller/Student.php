@@ -23,8 +23,11 @@ class Student implements StudentInterface
     public function __construct(int $id)
     {
         $model = new StudentModel();
-        $this->student = $model->find($id);
-        $this->student->grades = json_decode($this->student->grades);
+        $student = $model->find($id);
+        if ($student) {
+            $this->student = $student;
+            $this->student->grades = json_decode($this->student->grades);
+        }
     }
 
     /**
@@ -32,24 +35,26 @@ class Student implements StudentInterface
      */
     public function render()
     {
-        switch ($this->student->school_board) {
-            case 'csm':
-                $schoolBoard = new Csm($this->student);
-                break;
+        if (isset($this->student->school_board)) {
+            switch ($this->student->school_board) {
+                case 'csm':
+                    $schoolBoard = new Csm($this->student);
+                    break;
 
-            case 'csmb':
-                $schoolBoard = new CsmB($this->student);
-                break;
-            
-            default:
-                $schoolBoard = false;
-                break;
-        }
+                case 'csmb':
+                    $schoolBoard = new CsmB($this->student);
+                    break;
+                
+                default:
+                    $schoolBoard = false;
+                    break;
+            }
 
-        if ($schoolBoard instanceof SchoolBoardInterface) {
-            $schoolBoard->calculateAverage();
-            $schoolBoard->calculateFinalResult();
-            $schoolBoard->report();
+            if ($schoolBoard instanceof SchoolBoardInterface) {
+                $schoolBoard->calculateAverage();
+                $schoolBoard->calculateFinalResult();
+                $schoolBoard->report();
+            }
         }
     }
 }
