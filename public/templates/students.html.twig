@@ -1,0 +1,30 @@
+{% set active = 'students' %}
+{% extends "base.html.twig" %}
+
+{% block title %}Students page{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Our students</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">School board</th>
+                <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <th scope="row">{{ student.id }}</th>
+                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>{{ student.school_board|upper }}</td>
+                    <td><a href="/students/{{ student.id }}">Link</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
