@@ -28,20 +28,17 @@ Router::notAllowed(function() use ($twig) {
 });
 
 // Home page
-Router::add('/',function() {
-    echo 'Home page';
-});
-
-// Students page
-Router::add('/students', function() {
-    echo 'Students page';
+Router::add('/',function() use ($twig) {
+    echo $twig->render('home.html.twig');
 });
 
 // Students page accept only numbers as parameter
 // Other characters will result in a 404 error
 Router::add('/students/([0-9]*)', function($id) use ($twig) {
     $student = new Student($id);
-    $student->show();
+    $data = $student->show();
+    header('Content-Type: application/json');
+    echo json_encode($data);
 });
 
 // Run the router

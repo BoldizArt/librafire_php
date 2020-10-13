@@ -24,6 +24,10 @@ class Student implements SchoolBoardInterface
 
     }
     public function show() {
-        echo "Student id: {$this->id}";
+        return [
+            'id' => $this->id,
+            'first_name' => 'John',
+            'last_name' => 'Doe'
+        ];
     }
 }

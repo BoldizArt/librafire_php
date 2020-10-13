@@ -1,2 +1,14 @@
-<h1>Students page</h1>
-<p>Fetch the student with id: <b>{{id}}...</b></h2>
+{% extends "base.html.twig" %}
+
+{% block title %}Students page{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Students page</h1>
+        <ul>
+            <li>Id: {{ data.id }}</li>
+            <li>First name: {{ data.first_name }}</li>
+            <li>Last name: {{ data.last_name }}</li>
+        </ul>
+    </div>
+{% endblock %}
