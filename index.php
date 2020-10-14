@@ -6,11 +6,16 @@ error_reporting(E_ALL);
 
 require_once(__DIR__.'/vendor/autoload.php');
 
+use Dotenv\Dotenv;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Boldizar\LibraFire\Router;
-use Boldizar\LibraFire\Controller\Student;
 use Boldizar\LibraFire\Model\StudentModel;
+use Boldizar\LibraFire\Controller\Student;
+
+// Load the .env file
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 // Set up Twig template engine
 $loader = new FilesystemLoader(__DIR__.'/public/templates');
@@ -20,12 +25,18 @@ $twig = new Environment($loader, [
 
 // Set the "Not Found" function
 Router::notFound(function() use ($twig) {
-    echo $twig->render('error/404.html.twig');
+    echo $twig->render('error/error.html.twig', [
+        'title' => 404,
+        'text' => 'Not Found'
+    ]);
 });
 
 // Set the "Not allowed" function
 Router::notAllowed(function() use ($twig) {
-    echo $twig->render('error/405.html.twig');
+    echo $twig->render('error/error.html.twig', [
+        'title' => 405,
+        'text' => 'Not Allowed'
+    ]);
 });
 
 // Home page

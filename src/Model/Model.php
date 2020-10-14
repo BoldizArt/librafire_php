@@ -14,10 +14,10 @@ class Model
     /**
      * Class constructor
      */	
-    public function __construct($dbhost = "localhost", $dbname = "boldizar_librafire", $username = "admin", $password = "Js7hn84U_m")
+    public function __construct()
     {
         try {
-            $this->connection = new PDO("mysql:host={$dbhost};dbname={$dbname};", $username, $password);
+            $this->connection = new PDO("mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};", $_ENV['USERNAME'], $_ENV['PASSWORD']);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch(Exception $e) {

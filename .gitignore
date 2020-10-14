@@ -8,3 +8,6 @@ vendor
 
 # Ignore Twig cache
 public/cache/*
+
+# Ignore the original .env file
+.env
