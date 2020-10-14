@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block title %}{{title}} ({{ text }}){% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+    <div class="error-page">
+        <div class="content">
+            <h1 class="title">{{ title }}</h1>
+            <p class="text">{{ text }}</p>
+            <a class="btn btn-primary btn-lg" href="/">Go Home</a>
+        </div>
+    </div>
+{% endblock %}

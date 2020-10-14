@@ -1,0 +1,15 @@
+.navbar { margin-bottom: 1rem; }
+
+.error-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .title {
+        color: #4d4d4d;
+        font-weight: bold;
+        font-size: 4.8rem;
+    }
+}
